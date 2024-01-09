@@ -1,0 +1,113 @@
+CRETIN : S_SCH_model.gen
+  
+ CRETIN - version v_02_20  (gfortran.openmp.dist)        
+          created on Wed Jul  7 14:15:38 PDT 2021        
+          by hascott                                     
+
+
+  ****   Starting execution -- Mon Jan  2 15:05:16 2023   ****
+
+
+
+
+ ------------------------------------------------------------
+
+     17 iso-sequences
+     80 levels    
+   data type phxs     --      110 transitions
+   data type phis     --      141 transitions
+   data type colex2   --      110 transitions
+   data type samp_ion --      141 transitions
+   data type augxs    --      107 transitions
+   data type augis    --      712 transitions       178 statements
+
+
+ ------------------------------------------------------------
+
+atoms hydrogenic_2 S reconst
+! modeltype term
+! modeltype fly
+! isorange all 2 2
+!  modeltype term
+
+! atomic model
+switch 164 1
+switch 165 1         ! holes in the core
+switch 166 1
+switch 133 00210002  ! Controls screened hydrogenic model
+switch 134 100
+switch 61 1000
+switch 188 42
+
+  %% -- ** WARNING ** -- no continuum groups defined
+
+Constructing hydrogenic atomic model for (z,a) =  16 , 3.2060E+01
+     17 iso-sequences
+     80 levels    
+   data type phxs     --      110 transitions
+   data type phis     --      141 transitions
+   data type colex2   --      110 transitions
+   data type samp_ion --      141 transitions
+   data type augxs    --      107 transitions
+   data type augis    --      712 transitions       178 statements
+
+Writing atomic model S_SCH_model.z01
+
+
+ Indexing information
+ --------------------
+
+
+
+ ------------------------------------------------------------
+
+
+   transition list for model hydrogenic_01
+
+   augis                                          de        lambda
+   -----                                          --        ------
+          1 :  16     4       15    22        2.5852E+02  4.7960E+01
+          2 :  11     1       10     1        2.6526E+02  4.6740E+01
+          3 :  15     4       14    17        2.7357E+02  4.5320E+01
+          4 :  16     7       15    23        2.8141E+02  4.4058E+01
+          5 :  14     4       13    12        2.8415E+02  4.3633E+01
+          6 :  15     7       14    18        2.9672E+02  4.1785E+01
+          7 :  12     3       11     3        3.0010E+02  4.1314E+01
+          8 :  13     4       12     7        3.0095E+02  4.1198E+01
+          9 :  16     9       15    26        3.0556E+02  4.0575E+01
+         10 :  14     7       13    13        3.0754E+02  4.0314E+01
+         11 :  15     9       14    21        3.2112E+02  3.8610E+01
+         12 :  13     7       12     8        3.2459E+02  3.8197E+01
+         13 :  14     9       13    16        3.3219E+02  3.7324E+01
+         14 :  13     9       12    10        3.4948E+02  3.5477E+01
+         15 :  12     7       11     4        3.5601E+02  3.4826E+01
+         16 :  12     9       11     5        3.8114E+02  3.2530E+01
+         17 :  11     1       10     2        2.5944E+03  4.7788E+00
+         18 :  16     4       15    24        2.6121E+03  4.7466E+00
+         19 :  15     4       14    19        2.6284E+03  4.7171E+00
+         20 :  14     4       13    14        2.6405E+03  4.6955E+00
+         21 :  13     4       12     9        2.6590E+03  4.6628E+00
+         22 :  16     7       15    25        2.7806E+03  4.4588E+00
+         23 :  15     7       14    20        2.7973E+03  4.4323E+00
+         24 :  14     7       13    15        2.8096E+03  4.4128E+00
+         25 :  13     7       12    11        2.8284E+03  4.3836E+00
+         26 :  12     7       11     6        2.8617E+03  4.3326E+00
+
+
+ ------------------------------------------------------------
+
+
+
+Memory allocated =     2.6  Mbytes
+ cpu =    0.2  seconds
+
+ Timing statistics                  cpu         %
+ -----------------                  ---        ---
+     Generation               :   2.20E-01    94.7
+     Initialization           :   3.97E-04     0.2
+     Kinetics                 :   3.95E-05     0.0
+     Edits                    :   2.82E-05     0.0
+
+
+ ****   Finishing execution -- Mon Jan  2 15:05:16 2023   ****
+

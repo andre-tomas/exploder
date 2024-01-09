@@ -1,0 +1,35 @@
+  
+ CRETIN - version v_02_21  (ifort.f90.openmp.dist)       
+
+
+  ****   Starting execution -- 11/27/23  10:30:28   ****
+
+
+
+   %% -- ** WARNING ** -- no continuum groups defined
+ 
+ Constructing hydrogenic atomic model for (z,a) =  15 , 3.0974E+01
+ 
+ Writing atomic model P_SCH_model.z01
+
+
+ ------------------------------------------------------------
+
+
+
+ Here we go !!!
+
+      cycle #    0     time = 0.0000E+00
+ 
+  cpu =    0.5  seconds
+ 
+  Timing statistics                  cpu         %
+  -----------------                  ---        ---
+      Generation               :   2.10E-01    41.9
+      Initialization           :   1.97E-04     0.0
+      Kinetics                 :   2.12E-05     0.0
+      Edits                    :   1.29E-05     0.0
+ 
+ 
+  ****   Finishing execution -- 11/27/23  10:30:29   ****
+ 

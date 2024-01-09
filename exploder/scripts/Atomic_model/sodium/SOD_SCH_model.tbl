@@ -1,0 +1,104 @@
+CRETIN : SOD_SCH_model.gen
+  
+ CRETIN - version v_02_20  (gfortran.openmp.dist)        
+          created on Wed Jul  7 14:15:38 PDT 2021        
+          by hascott                                     
+
+
+  ****   Starting execution -- Wed Jan 11 09:49:15 2023   ****
+
+
+
+
+ ------------------------------------------------------------
+
+     12 iso-sequences
+    198 levels    
+   data type phxs     --      565 transitions
+   data type phis     --      141 transitions
+   data type colex2   --      565 transitions
+   data type samp_ion --      141 transitions
+   data type augxs    --       73 transitions
+   data type augis    --      257 transitions        84 statements
+
+
+ ------------------------------------------------------------
+
+atoms hydrogenic_2 Na reconst
+! modeltype term
+! modeltype fly
+ isorange all 2 2
+!  modeltype term
+
+! atomic model
+switch 164 1
+switch 165 1         ! holes in the core
+switch 166 1
+switch 133 00210002  ! Controls screened hydrogenic model
+switch 134 100
+switch 61 1000
+switch 188 42
+
+  %% -- ** WARNING ** -- no continuum groups defined
+
+Constructing hydrogenic atomic model for (z,a) =  11 , 2.2990E+01
+     12 iso-sequences
+    198 levels    
+   data type phxs     --      565 transitions
+   data type phis     --      141 transitions
+   data type colex2   --      565 transitions
+   data type samp_ion --      141 transitions
+   data type augxs    --       73 transitions
+   data type augis    --      257 transitions        84 statements
+
+Writing atomic model SOD_SCH_model.z01
+
+
+ Indexing information
+ --------------------
+
+
+
+ ------------------------------------------------------------
+
+
+   transition list for model hydrogenic_01
+
+   augis                                          de        lambda
+   -----                                          --        ------
+          1 :  11     1       10     9        2.9581E+01  4.1913E+02
+          2 :  11     2       10    10        3.1499E+01  3.9362E+02
+          3 :  11     3       10    11        3.4480E+01  3.5958E+02
+          4 :  11     1       10    12        6.7658E+01  1.8325E+02
+          5 :  11     2       10    13        7.0890E+01  1.7490E+02
+          6 :  11     3       10    14        7.3470E+01  1.6876E+02
+          7 :   3     4        2     2        3.2080E+02  3.8648E+01
+          8 :   3     6        2     5        3.4019E+02  3.6446E+01
+          9 :   3     7        2     7        3.4168E+02  3.6286E+01
+         10 :  11     1       10    15        1.0873E+03  1.1403E+01
+         11 :  11     2       10    16        1.0903E+03  1.1372E+01
+         12 :  11     3       10    17        1.0935E+03  1.1338E+01
+         13 :   3     2        2     3        1.4023E+03  8.8416E+00
+         14 :   3     1        2     1        1.4103E+03  8.7911E+00
+         15 :   3     5        2     8        1.5246E+03  8.1322E+00
+         16 :   3     4        2     4        1.5338E+03  8.0836E+00
+         17 :   3     3        2     6        1.5436E+03  8.0322E+00
+
+
+ ------------------------------------------------------------
+
+
+
+Memory allocated =     2.7  Mbytes
+ cpu =    0.3  seconds
+
+ Timing statistics                  cpu         %
+ -----------------                  ---        ---
+     Generation               :   2.64E-01    87.7
+     Initialization           :   4.30E-04     0.1
+     Kinetics                 :   4.00E-05     0.0
+     Edits                    :   1.37E-05     0.0
+
+
+ ****   Finishing execution -- Wed Jan 11 09:49:15 2023   ****
+

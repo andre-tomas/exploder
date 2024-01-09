@@ -1,0 +1,80 @@
+CRETIN : H_SCH_model.gen
+  
+ CRETIN - version v_02_20  (gfortran.openmp.dist)        
+          created on Wed Jul  7 14:15:38 PDT 2021        
+          by hascott                                     
+
+
+  ****   Starting execution -- Mon Jan  2 15:01:46 2023   ****
+
+
+
+
+ ------------------------------------------------------------
+
+      2 iso-sequences
+      3 levels    
+   data type phxs     --        1 transitions
+   data type phis     --        2 transitions
+   data type colex2   --        1 transitions
+   data type samp_ion --        2 transitions
+
+
+ ------------------------------------------------------------
+
+atoms hydrogenic_2 H reconst
+! modeltype term
+! modeltype fly
+! isorange all 2 2
+!  modeltype term
+
+! atomic model
+switch 164 1
+switch 165 1         ! holes in the core
+switch 166 1
+switch 133 00210002  ! Controls screened hydrogenic model
+switch 134 100
+switch 61 1000
+switch 188 42
+
+  %% -- ** WARNING ** -- no continuum groups defined
+
+Constructing hydrogenic atomic model for (z,a) =   1 , 1.0079E+00
+      2 iso-sequences
+      3 levels    
+   data type phxs     --        1 transitions
+   data type phis     --        2 transitions
+   data type colex2   --        1 transitions
+   data type samp_ion --        2 transitions
+
+Writing atomic model H_SCH_model.z01
+
+
+ Indexing information
+ --------------------
+
+
+
+ ------------------------------------------------------------
+
+
+   transition list for model hydrogenic_01
+
+
+ ------------------------------------------------------------
+
+
+
+Memory allocated =     2.2  Mbytes
+ cpu =    0.3  seconds
+
+ Timing statistics                  cpu         %
+ -----------------                  ---        ---
+     Generation               :   2.16E-01    82.9
+     Initialization           :   3.27E-04     0.1
+     Kinetics                 :   2.82E-05     0.0
+     Edits                    :   1.04E-05     0.0
+
+
+ ****   Finishing execution -- Mon Jan  2 15:01:46 2023   ****
+

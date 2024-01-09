@@ -1,0 +1,14 @@
+atoms hydrogenic_2 P reconst 
+! modeltype term
+! modeltype fly
+! isorange all 2 2
+!  modeltype term
+
+! atomic model
+switch 164 1
+switch 165 1         ! holes in the core
+switch 166 1
+switch 133 00210002  ! Controls screened hydrogenic model
+switch 134 100
+switch 61 1000
+switch 188 42

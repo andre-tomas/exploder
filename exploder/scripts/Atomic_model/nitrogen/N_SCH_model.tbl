@@ -1,0 +1,82 @@
+CRETIN : N_SCH_model.gen
+  
+ CRETIN - version v_02_20  (gfortran.openmp.dist)        
+          created on Wed Jul  7 14:15:38 PDT 2021        
+          by hascott                                     
+
+
+  ****   Starting execution -- Mon Jan  2 14:57:14 2023   ****
+
+
+
+
+ ------------------------------------------------------------
+
+      8 iso-sequences
+     21 levels    
+   data type phxs     --       13 transitions
+   data type phis     --       31 transitions
+   data type colex2   --       13 transitions
+   data type samp_ion --       31 transitions
+   data type augxs    --       11 transitions
+
+
+ ------------------------------------------------------------
+
+atoms hydrogenic_2 N reconst
+! modeltype term
+! modeltype fly
+! isorange all 2 2
+!  modeltype term
+
+! atomic model
+switch 164 1
+switch 165 1         ! holes in the core
+switch 166 1
+switch 133 00210002  ! Controls screened hydrogenic model
+switch 134 100
+switch 61 1000
+switch 188 42
+
+  %% -- ** WARNING ** -- no continuum groups defined
+
+Constructing hydrogenic atomic model for (z,a) =   7 , 1.4007E+01
+      8 iso-sequences
+     21 levels    
+   data type phxs     --       13 transitions
+   data type phis     --       31 transitions
+   data type colex2   --       13 transitions
+   data type samp_ion --       31 transitions
+   data type augxs    --       11 transitions
+
+Writing atomic model N_SCH_model.z01
+
+
+ Indexing information
+ --------------------
+
+
+
+ ------------------------------------------------------------
+
+
+   transition list for model hydrogenic_01
+
+
+ ------------------------------------------------------------
+
+
+
+Memory allocated =     2.2  Mbytes
+ cpu =    0.3  seconds
+
+ Timing statistics                  cpu         %
+ -----------------                  ---        ---
+     Generation               :   1.92E-01    55.1
+     Initialization           :   2.90E-04     0.1
+     Kinetics                 :   2.63E-05     0.0
+     Edits                    :   8.54E-06     0.0
+
+
+ ****   Finishing execution -- Mon Jan  2 14:57:14 2023   ****
+
