@@ -1,0 +1,1 @@
+cp ./exploder $1

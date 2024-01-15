@@ -33,12 +33,13 @@ class Simulation():
 		threads,
 		ts,
 		nsteps,
-		guassian_peak=0.0,
-		num_photons=1e9,
-		sigma=0.010616,
-		focal_diameter=100,
+		gaussian_peak,
+		num_photons,
+		sigma,
+		focal_diameter,
+		photon_energy,
 		do_ff=1,
-		do_cg=1,
+		do_ct=1,
 		do_debye=1,
 		do_log=0,
 		read_states=0,
@@ -48,16 +49,17 @@ class Simulation():
 		# mdp parameters
 		self.ts = ts
 		self.nsteps = nsteps
-		self.guassian_peak = guassian_peak
+		self.gaussian_peak = gaussian_peak
 		self.num_photons = num_photons
 		self.sigma = sigma
 		self.focal_diameter = focal_diameter
+		self.photon_energy = photon_energy
 		self.MD_log = MD_log
 
 
 		# What do?
 		self.do_ff = do_ff
-		self.do_cg = do_cg
+		self.do_ct = do_ct
 		self.do_debye=do_debye
 		self.do_log=do_log
 		self.read_states=read_states
@@ -108,17 +110,22 @@ class Simulation():
 				if "nsteps" in split_line:
 					line = f"nsteps                   = {self.nsteps}; \n"
 				if "userreal1" in split_line: 
-					line = f"userreal1				  = {self.guassian_peak};\n"
+					line = f"userreal1				  = {self.gaussian_peak};\n"
 				if "userreal2" in split_line: 
 					line = f"userreal2				  = {self.num_photons}; \n"
 				if "userreal3" in split_line:
 					line = f"userreal3				  = {self.sigma}; \n"
 				if "userreal4" in split_line:
 					line = f"userreal4				  = {self.focal_diameter}; \n"
+				if "userreal5" in split_line:
+					line = f"userreal5				  = {self.photon_energy}; \n"
+
+
+
 				if "userint1" in split_line:
 					line = f"userint1				  = {self.do_ff}; \n"
 				if "userint2" in split_line:
-					line = f"userint2				  = {self.do_cg}; \n"
+					line = f"userint2				  = {self.do_ct}; \n"
 				if "userint3" in split_line:
 					line = f"userint3				  = {self.do_debye}; \n"
 				if "userint4" in split_line:
@@ -536,8 +543,8 @@ input_path 	= os.path.join(main_path,"input")
 script_path = os.path.join(main_path,"scripts")
 mdp_path 		= os.path.join(main_path,"mdp_files")
 mdp_conf 		= os.path.join(mdp_path,"conf.mdp")
-mdp_exp1  		= os.path.join(mdp_path,"exp1.mdp")
-mdp_exp2  		= os.path.join(mdp_path,"exp2.mdp")
+mdp_exp1  	= os.path.join(mdp_path,"exp1.mdp")
+mdp_exp2  	= os.path.join(mdp_path,"exp2.mdp")
 
 
 
@@ -586,50 +593,66 @@ energy_limit					= params.energy_limit
 
 
 # initialize Simulations
-configuration_simulation = Simulation(mdp_conf,
-								gmx_path,
-								params.forcefield,
-								params.threads_base,
-								params.ts_conf,
-								params.nsteps_conf,
-								None,								# FEL parameters are not used in config simulation
-								None,
-								None,
-								None,
+configuration_simulation = Simulation(
+								path_to_mdp=mdp_conf,
+								gmx_path=gmx_path,
+								forcefield=params.forcefield,
+								threads=params.threads_base,
+								ts=params.ts_conf,
+								nsteps=params.nsteps_conf,
+								gaussian_peak=0, 			# FEL parameters are not used in config simulation
+								num_photons=0,								
+								sigma=0,
+								focal_diameter=0,
+								photon_energy=0,
+								do_ff=0,
+								do_ct=0,
+								do_debye=0,
+								do_log=0,
+								read_states=0,
 								double=False,
 								MD_log=1,
 								)
 
-explosion_simulation1 = Simulation(mdp_exp1,
-								gmxp_path,
-								params.forcefield,
-								params.threads_exp,
-								params.ts_exp1,
-								params.nsteps_exp1,
-								params.guassian_peak,
-								params.num_photons,
-								params.sigma,
-								params.focal_diameter,
-								do_log=params.do_log1,
+# This is the main simulation
+explosion_simulation1 = Simulation(
+								path_to_mdp=mdp_exp1,
+								gmx_path=gmxp_path,
+								forcefield=params.forcefield,
+								threads=params.threads_exp,
+								ts=params.ts_exp1,
+								nsteps=params.nsteps_exp1,
+								gaussian_peak=params.gaussian_peak,
+								num_photons=params.num_photons,
+								sigma=params.sigma,
+								focal_diameter=params.focal_diameter,
+								photon_energy=params.photon_energy,
 								do_ff=params.do_ff1,
+								do_ct=params.do_ct1,
+								do_debye=params.do_debye1,								
+								do_log=params.do_log1,
 								read_states=params.read_states1,
-								do_cg=params.do_cg1,
 								double=False,
 								MD_log=params.MD_log,
 								)
 
-explosion_simulation2 = Simulation(mdp_exp2,
-								gmxp_path,
-								params.forcefield,
-								params.threads_exp,
-								params.ts_exp2,
-								params.nsteps_exp2,
-								0, # All FEL parameters 0, no new lazorz
-								0,
-								0,
-								0,
-								do_log=params.do_log2,
+# Extension of simulation if needed
+explosion_simulation2 = Simulation(
+								path_to_mdp=mdp_exp2,
+								gmx_path=gmxp_path,
+								forcefield=params.forcefield,
+								threads=params.threads_exp,
+								ts=params.ts_exp2,
+								nsteps=params.nsteps_exp2,
+								gaussian_peak=0, # All FEL parameters 0, no new lazorz
+								num_photons=0,
+								sigma=0,
+								focal_diameter=0,
+								photon_energy=params.photon_energy,
 								do_ff=params.do_ff2,
+								do_ct=params.do_ct2,
+								do_debye=params.do_debye2,			
+								do_log=params.do_log2,
 								read_states=params.read_states2,
 								double=False,
 								MD_log=params.MD_log,

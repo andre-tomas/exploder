@@ -29,29 +29,30 @@ nsteps_conf = 1_000 # 1_000_000 # should be atleast 10*extracted frames
 ts_conf     = 0.001 
 
 # Explosion sim 1
-nsteps_exp1 = 50_000
+nsteps_exp1 = 10_000
 ts_exp1     = 0.000_001  # 0.001 = 1.0fs, 1 = 1ps, 0.05fs = 50as = 0.000_05 ps, 0.000_001 ps = 1as
 do_ff1		=1   # alter forcefield userint1
-do_cg1		=1   # Do charge transfer  userint2
+do_ct1		=1   # Do charge transfer  userint2
 do_debye1	=1   # Use debye shielding  userint3
 do_log1		=1  # Write log files (Use for debugging, big performance drop) userint5
 read_states1=0   # (0) Start from ground states, (1) Read states and charges from file. userint4
 
 # FEL parameters
-guassian_peak = 0.0 # [ps] userreal1 
-num_photons   = 1e11 # userreal2
-FWHM          = 0.010616 # userreal3
+gaussian_peak = 0.015 # [ps] userreal1 
+num_photons   = 5e10 # userreal2
+sigma         = 5.096*1e-3 # [ps] userreal3
 focal_diameter= 100 # [nm] userreal4
+photon_energy = 600 # [eV] userreal5
 
 
 # Explosion sim 2
 nsteps_exp2 = 10_000
 ts_exp2     = 0.000_001
 do_ff2		=1 	  # alter forcefield
-do_cg2		=1    # Do charge transfer 
+do_ct2		=1    # Do charge transfer 
 do_debye2	=1    # Use debye shielding 
-do_log2		=1    # Write log files (Use for debugging, big performance drop)
-read_states2=1    # (0) Start from ground states, (1) Read states and charges from file.
+do_log2		=0    # Write log files (Use for debugging, big performance drop)
+read_states2=0    # (0) Start from ground states, (1) Read states and charges from file.
 energy_limit = 0.90
 # No FEL parameters for second explosion.
 # This simulation runs as a contiunuation if the previous one did not fulfill the energy condition.
