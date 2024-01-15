@@ -1,1 +1,1 @@
-cp ./exploder $1
+cp -r ./exploder $1
