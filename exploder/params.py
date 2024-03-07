@@ -15,7 +15,7 @@ cleanup = False # if True keep only reduced results (remove all big trr files)
 # Forcefield parameters
 forcefield ="charmm36-mar2019-Fe-S"  # Forcefield for HiPIP
 #forcefield = "CHARMM"
-water = "spce"		  		# Water model used (if needed)
+water = "tip3p"		  		# Water model used (if needed) USE TIP3P!
 
 # Number of simulations
 threads_base = 1
@@ -36,6 +36,7 @@ do_ct1		=1   # Do charge transfer  userint2
 do_debye1	=1   # Use debye shielding  userint3
 do_log1		=1  # Write log files (Use for debugging, big performance drop) userint5
 read_states1=0   # (0) Start from ground states, (1) Read states and charges from file. userint4
+do_coll1 	=0
 
 # FEL parameters
 gaussian_peak = 0.015 # [ps] userreal1 
@@ -53,6 +54,7 @@ do_ct2		=1    # Do charge transfer
 do_debye2	=1    # Use debye shielding 
 do_log2		=0    # Write log files (Use for debugging, big performance drop)
 read_states2=0    # (0) Start from ground states, (1) Read states and charges from file.
+do_coll2 	=0
 energy_limit = 0.90
 # No FEL parameters for second explosion.
 # This simulation runs as a contiunuation if the previous one did not fulfill the energy condition.

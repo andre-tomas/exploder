@@ -252,6 +252,7 @@ userint2				  = 1;
 userint3				  = 1; 
 userint4				  = 0; 
 userint5				  = 1; 
+userint6				  = 0; 
 
 
 userreal1				  = 0.0;

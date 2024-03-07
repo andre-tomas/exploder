@@ -250,11 +250,12 @@ E-zt                     =
 userint1				  = 1; 
 userint2				  = 1; 
 userint3				  = 1; 
-userint4				  = 1; 
+userint4				  = 0; 
 userint5				  = 1; 
+userint6				  = 0; 
 
 
-userreal1				  = 0;
-userreal2				  = 0; 
-userreal3				  = 0; 
-userreal4				  = 0; 
+userreal1				  = 0.0;
+userreal2				  = 0.0;
+userreal3				  = 0.0; 
+userreal4				  = 0.0;

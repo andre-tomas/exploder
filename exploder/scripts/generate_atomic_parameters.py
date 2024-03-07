@@ -474,7 +474,7 @@ def initialize_atomic_states(atoms):
 	atom_to_state["C"] = [2,4,0]
 	atom_to_state["P"] = [2,8,5]
 	atom_to_state["S"] = [2,8,6]
-	atom_to_state["F"] = [2,8,16]
+	atom_to_state["FE"] = [2,8,16]
 	atomic_numbers = []
 	Z = {}
 	Z["O"] = 8
@@ -483,14 +483,14 @@ def initialize_atomic_states(atoms):
 	Z["P"] = 15
 	Z["N"] = 7
 	Z["C"] = 6
-	Z["F"] = 26
+	Z["FE"] = 26
 	atom_paths["O"]  = f"{main_path}/Atomic_model/oxygen/O_SCH_model.z01"
 	atom_paths["H"]  = f"{main_path}/Atomic_model/hydrogen/H_SCH_model.z01"
 	atom_paths["C"]  = f"{main_path}/Atomic_model/carbon/C_SCH_model.z01"
 	atom_paths["N"]  = f"{main_path}/Atomic_model/nitrogen/N_SCH_model.z01"
 	atom_paths["P"]  = f"{main_path}/Atomic_model/phosphor/P_SCH_model.z01"
 	atom_paths["S"]  = f"{main_path}/Atomic_model/sulfur/S_SCH_model.z01"
-	atom_paths["F"] = f"{main_path}/Atomic_model/iron/Fe_SCH_model.z01"
+	atom_paths["FE"] = f"{main_path}/Atomic_model/iron/Fe_SCH_model.z01"
 
 	atomic_states = []
 	for atom in atoms:
@@ -689,7 +689,7 @@ else:
 
 for atom in unique_atom_list:
 
-	f2 = open("rate_transitions_to_gromacs_{}.txt".format(atom), "w")
+	f2 = open("rate_transitions_{}.txt".format(atom), "w")
 	
 	atomic_state, electronic_occupation, statistical_weight, energy_level, transition_dict, transition_dict, auger_transition_dict, phxs_transition_dict, phxs_transition_dict_inverse, fluorescence_transition_dict, statistical_weight_dictionary, energy_level_dict, collisional_ionization_dict, collisional_excitation_dict = CRETIN_DATA[atom]
 
