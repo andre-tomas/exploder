@@ -168,7 +168,7 @@ class Simulation():
 		ext  = input_file.split('.')[-1]
 
 
-		cmd = f"{self.pdb2gmx} -f {input_file} -o pdb2gmx_intermediate.gro -water {self.water} -ff {self.forcefield} -ignh"
+		cmd = f"{self.pdb2gmx} -f {input_file} -o pdb2gmx_intermediate.gro -water tip3p -ff {self.forcefield} -ignh"
 		sp.Popen(shlex.split(cmd)).wait()
 
 		cmd = f"{gmx_path}/editconf -f pdb2gmx_intermediate.gro -o {output_file} -rotate {rotate} -c -d 12 -bt cubic"
@@ -310,7 +310,7 @@ class Model():
 				os.chdir(config_name)
 				os.mkdir("simulation_output") # Used to write electron dynamics logs
 
-				generate_atomic_parameters(600,f"{self.name}.pdb",input_path,"./")
+				generate_atomic_parameters(self.exp_sim1.photon_energy,f"{self.name}.pdb",input_path,"./")
 				
 				with open(log_ext_path,'a') as f:
 					log = f"Starting run {config_name} from {self.name} at time: {datetime.datetime.now()}.\n"
