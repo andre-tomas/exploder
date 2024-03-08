@@ -38,11 +38,13 @@ class Simulation():
 		sigma,
 		focal_diameter,
 		photon_energy,
+		water="tip3p",
 		do_ff=1,
 		do_ct=1,
 		do_debye=1,
 		do_log=0,
 		read_states=0,
+		do_coll=0,
 		double=False,
 		MD_log=1000):
 
@@ -63,11 +65,13 @@ class Simulation():
 		self.do_debye=do_debye
 		self.do_log=do_log
 		self.read_states=read_states
+		self.do_coll = do_coll
 
 
 		# other parameters
 		self.forcefield = forcefield
 		self.threads = threads
+		self.water = water
 
 		# sim files
 		self.mdp = path_to_mdp
@@ -132,6 +136,8 @@ class Simulation():
 					line = f"userint4				  = {self.read_states}; \n"
 				if "userint5" in split_line:
 					line = f"userint5				  = {self.do_log}; \n"
+				if "userint6" in split_line:
+					line = f"userint6				  = {self.do_coll}; \n"
 
 				# Log stuff
 				if "nstxout" in split_line: 
@@ -162,7 +168,7 @@ class Simulation():
 		ext  = input_file.split('.')[-1]
 
 
-		cmd = f"{self.pdb2gmx} -f {input_file} -o pdb2gmx_intermediate.gro -water spce -ff {self.forcefield} -ignh"
+		cmd = f"{self.pdb2gmx} -f {input_file} -o pdb2gmx_intermediate.gro -water tip3p -ff {self.forcefield} -ignh"
 		sp.Popen(shlex.split(cmd)).wait()
 
 		cmd = f"{gmx_path}/editconf -f pdb2gmx_intermediate.gro -o {output_file} -rotate {rotate} -c -d 12 -bt cubic"
@@ -236,8 +242,6 @@ class Model():
 
 		#MC 
 		self.atomic_data = f"{main_path}/Atomic_data"
-		self.cretin_data = f"{main_path}/simulation_output"
-
 
 		os.mkdir(self.result_path)
 		os.chdir(self.result_path)
@@ -306,7 +310,7 @@ class Model():
 				os.chdir(config_name)
 				os.mkdir("simulation_output") # Used to write electron dynamics logs
 
-				generate_atomic_parameters(600,f"{self.name}.pdb",input_path,"./")
+				generate_atomic_parameters(self.exp_sim1.photon_energy,f"{self.name}.pdb",input_path,"./")
 				
 				with open(log_ext_path,'a') as f:
 					log = f"Starting run {config_name} from {self.name} at time: {datetime.datetime.now()}.\n"
@@ -605,11 +609,13 @@ configuration_simulation = Simulation(
 								sigma=0,
 								focal_diameter=0,
 								photon_energy=0,
+								water=params.water,
 								do_ff=0,
 								do_ct=0,
 								do_debye=0,
 								do_log=0,
 								read_states=0,
+								do_coll=0,
 								double=False,
 								MD_log=1,
 								)
@@ -627,11 +633,13 @@ explosion_simulation1 = Simulation(
 								sigma=params.sigma,
 								focal_diameter=params.focal_diameter,
 								photon_energy=params.photon_energy,
+								water=params.water,
 								do_ff=params.do_ff1,
 								do_ct=params.do_ct1,
 								do_debye=params.do_debye1,								
 								do_log=params.do_log1,
 								read_states=params.read_states1,
+								do_coll=params.do_coll1,
 								double=False,
 								MD_log=params.MD_log,
 								)
@@ -648,12 +656,14 @@ explosion_simulation2 = Simulation(
 								num_photons=0,
 								sigma=0,
 								focal_diameter=0,
-								photon_energy=params.photon_energy,
+								photon_energy=0,
+								water=params.water,
 								do_ff=params.do_ff2,
 								do_ct=params.do_ct2,
 								do_debye=params.do_debye2,			
 								do_log=params.do_log2,
 								read_states=params.read_states2,
+								do_coll=params.do_coll2,
 								double=False,
 								MD_log=params.MD_log,
 								)
