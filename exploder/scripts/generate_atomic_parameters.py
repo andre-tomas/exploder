@@ -474,7 +474,7 @@ def initialize_atomic_states(atoms):
 	atom_to_state["C"] = [2,4,0]
 	atom_to_state["P"] = [2,8,5]
 	atom_to_state["S"] = [2,8,6]
-	atom_to_state["F"] = [2,8,16]
+	atom_to_state["Fe"] = [2,8,16]
 	atomic_numbers = []
 	Z = {}
 	Z["O"] = 8
@@ -483,14 +483,14 @@ def initialize_atomic_states(atoms):
 	Z["P"] = 15
 	Z["N"] = 7
 	Z["C"] = 6
-	Z["F"] = 26
+	Z["Fe"] = 26
 	atom_paths["O"]  = f"{main_path}/Atomic_model/oxygen/O_SCH_model.z01"
 	atom_paths["H"]  = f"{main_path}/Atomic_model/hydrogen/H_SCH_model.z01"
 	atom_paths["C"]  = f"{main_path}/Atomic_model/carbon/C_SCH_model.z01"
 	atom_paths["N"]  = f"{main_path}/Atomic_model/nitrogen/N_SCH_model.z01"
 	atom_paths["P"]  = f"{main_path}/Atomic_model/phosphor/P_SCH_model.z01"
 	atom_paths["S"]  = f"{main_path}/Atomic_model/sulfur/S_SCH_model.z01"
-	atom_paths["F"] = f"{main_path}/Atomic_model/iron/Fe_SCH_model.z01"
+	atom_paths["Fe"] = f"{main_path}/Atomic_model/iron/Fe_SCH_model.z01"
 
 	atomic_states = []
 	for atom in atoms:
@@ -561,6 +561,32 @@ def add_delimiter_to_file(filename,separation):
 			file.write(line)
 
 
+def extract_unique_elements_from_pdb(file_path):
+    """
+    Extracts unique elements from a PDB file.
+    
+    Args:
+    file_path (str): Path to the PDB file
+
+    Returns:
+    list: A list of unique elements in the PDB file
+    """
+    unique_elements = set()
+
+    # Read the PDB file
+    with open(file_path, 'r') as file:
+        for line in file:
+            if line.startswith("ATOM") or line.startswith("HETATM"):
+                # Extract the element symbol, which is typically found at these positions
+                # The element symbol is right-aligned within columns 77-78
+                element = line[76:78].strip()
+                unique_elements.add(element)
+
+    return list(unique_elements)
+
+
+
+
 
 	
 
@@ -588,7 +614,6 @@ os.chdir(dst)
 dst = os.getcwd()
 
 
-
 try:
 	os.mkdir("Atomic_data")
 	os.chdir("Atomic_data")
@@ -606,6 +631,7 @@ else:
 
 atoms, xyz, number_of_atoms, atomic_species = get_molecule_data(xyz_file) # Get info regarding atom species in the system and coordinates
 
+
 atomic_states, atomic_numbers, atom_paths = initialize_atomic_states(atoms) # initializing electronic states and possible transitions
 CRETIN_DATA = intialize_cretin_data()
 
@@ -619,6 +645,8 @@ if 'H' not in unique_atom_list: # We always wany H but it is sometimes omitted f
 		unique_atom_list.append('H')
 
 
+
+
 atomic_state, electronic_occupation, statistical_weight, energy_level, transition_dict, transition_dict, auger_transition_dict, phxs_transition_dict, phxs_transition_dict_inverse, fluorescence_transition_dict, statistical_weight_dictionary, energy_level_dict, collisional_ionization_dict, collisional_excitation_dict= CRETIN_DATA[atom]
 
 recombination = True 
@@ -630,7 +658,7 @@ if recombination == False:
 
 
 		atomic_state, electronic_occupation, statistical_weight, energy_level, transition_dict, transition_dict, auger_transition_dict, phxs_transition_dict, phxs_transition_dict_inverse, fluorescence_transition_dict, statistical_weight_dictionary, energy_level_dict, collisional_ionization_dict, collisional_excitation_dict = CRETIN_DATA[atom]
-		fcoll = open("collisional_parameters_{}.txt".format(atom), "w")
+		fcoll = open("collisional_parameters_{}.txt".format(atom.upper()), "w")
 
 		for state in electronic_occupation:
 			estate = get_electronic_state(state)
@@ -650,7 +678,7 @@ else:
 
 	for atom in unique_atom_list:
 		atomic_state, electronic_occupation, statistical_weight, energy_level, transition_dict, transition_dict, auger_transition_dict, phxs_transition_dict, phxs_transition_dict_inverse, fluorescence_transition_dict, statistical_weight_dictionary, energy_level_dict, collisional_ionization_dict, collisional_excitation_dict = CRETIN_DATA[atom]
-		fcoll = open("collisional_parameters_{}.txt".format(atom), "w")
+		fcoll = open("collisional_parameters_{}.txt".format(atom.upper()), "w")
 
 		for state in electronic_occupation:
 			estate = get_electronic_state(state)
@@ -689,7 +717,7 @@ else:
 
 for atom in unique_atom_list:
 
-	f2 = open("rate_transitions_to_gromacs_{}.txt".format(atom), "w")
+	f2 = open("rate_transitions_{}.txt".format(atom.upper()), "w")
 	
 	atomic_state, electronic_occupation, statistical_weight, energy_level, transition_dict, transition_dict, auger_transition_dict, phxs_transition_dict, phxs_transition_dict_inverse, fluorescence_transition_dict, statistical_weight_dictionary, energy_level_dict, collisional_ionization_dict, collisional_excitation_dict = CRETIN_DATA[atom]
 
@@ -714,14 +742,14 @@ for atom in unique_atom_list:
 	f2.writelines("0 0 0 ; 0 0 1  0.000 ; " + "\n")
 	f2.close()
 
-	f2 = open("energy_levels_{}.txt".format(atom), "w")
+	f2 = open("energy_levels_{}.txt".format(atom.upper()), "w")
 	for state in electronic_occupation:
 
 		estate = get_electronic_state(state)
 		f2.writelines("{0} {1} {2} {3}\n".format(estate[0], estate[1], estate[2], energy_level_dict[state]))
 
 	f2.close()
-	f2 = open("statistical_weight_{}.txt".format(atom), "w")
+	f2 = open("statistical_weight_{}.txt".format(atom.upper()), "w")
 	for state in electronic_occupation:
 		estate = get_electronic_state(state)
 		f2.writelines("{0} {1} {2} {3}\n".format(estate[0], estate[1], estate[2], statistical_weight_dictionary[state]))
@@ -739,7 +767,7 @@ for file in (file for file in files if "coll" in file):
 	add_delimiter_to_file(file,8)
 '''
 
-os.system(f"rm {dst}/sample.xyz")
+#os.system(f"rm {dst}/sample.xyz")
 
 
 
