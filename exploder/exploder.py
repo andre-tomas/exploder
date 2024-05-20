@@ -462,29 +462,56 @@ class Model():
 				
 			configurations = sorted([x for x in os.listdir(trr_dir) if x.split('.')[-1] == "trr"])
 			## load trr files to extract velocity vectors 
-			data = []
+			initial_vel = []
+			final_vel = []
+			initial_pos = []
+			final_pos = []
+			vel_data = []
+			pos_data = []
+
 			for l, configuration in enumerate(configurations):  
 				U = md.Universe(f"{trr_dir}/structure.gro",f"{trr_dir}/{configuration}")
 				ag = U.atoms.select_atoms("all")
 				idx = [ag[k].index for k in range(len(ag))]
+				if l == 0:
+					mass_data = (ag.masses).tolist()
         
 				velocity = U.trajectory[-1].velocities[idx]
 				velocity = [(x/np.linalg.norm(x)) for x in velocity] 
 				velocity = np.array(velocity, dtype=np.double)
 
-				data.append(velocity)
-			data = np.array(data)
+
+				vel_i = U.trajectory[0].velocities[idx]
+				vel_f = U.trajectory[-1].velocities[idx]
+
+				pos_i = U.trajectory[0].positions[idx]
+				pos_f = U.trajectory[-1].positions[idx]
+				pos = pos_f - pos_i
+				pos = np.array([x/np.linalg.norm(x) for x in pos])
+
+				vel_data.append(velocity)
+				pos_data.append(pos)
+				initial_pos.append(pos_i)
+				final_pos.append(pos_f)
+				initial_vel.append(vel_i)
+				final_vel.append(vel_f)
+
+			vel_data 		=	np.array(vel_data)
+			pos_data 		= np.array(pos_data)
+			initial_pos = np.array(initial_pos)
+			final_pos 	= np.array(final_pos)
+			initial_vel = np.array(initial_vel)
+			final_vel		= np.array(final_vel)
 
 			group = file[f"{params.num_photons:.0E}/{model.name}"]
-			group.create_dataset("directions",data=data)
-
-
-
-
-
-
-
-
+			
+			group.create_dataset("mass", 							data=mass_data)
+			group.create_dataset("unit_velocity",     data=vel_data)
+			group.create_dataset("unit_displacement", data=pos_data)
+			group.create_dataset("initial_position",	data=initial_pos)
+			group.create_dataset("final_position",		data=final_pos)
+			group.create_dataset("initial_velocity",	data=initial_vel)
+			group.create_dataset("final_velocity",		data=final_vel)
 
 
 
